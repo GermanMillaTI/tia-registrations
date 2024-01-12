@@ -4,7 +4,7 @@ import { Survey } from 'survey-react-ui';
 import { writeRegistry } from "./firebase/utilities"
 import telus from './telus.png';
 import { storage } from './firebase/config';
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { ref, uploadBytesResumable, uploadBytes } from "firebase/storage";
 
 const surveyJson = {
   showQuestionNumbers: false,
@@ -103,6 +103,86 @@ const surveyJson = {
         ],
         isRequired: true
       }, {
+        name: "stateOfResidence",
+        title: "State of residence:",
+        type: "dropdown",
+        choices: [
+          { value: 'Alabama' },
+          { value: 'Alaska' },
+          { value: 'Arizona' },
+          { value: 'Arkansas' },
+          { value: 'California' },
+          { value: 'Colorado' },
+          { value: 'Connecticut' },
+          { value: 'Delaware' },
+          { value: 'Florida' },
+          { value: 'Georgia' },
+          { value: 'Hawaii' },
+          { value: 'Idaho' },
+          { value: 'Illinois' },
+          { value: 'Indiana' },
+          { value: 'Iowa' },
+          { value: 'Kansas' },
+          { value: 'Kentucky' },
+          { value: 'Louisiana' },
+          { value: 'Maine' },
+          { value: 'Maryland' },
+          { value: 'Massachusetts' },
+          { value: 'Michigan' },
+          { value: 'Minnesota' },
+          { value: 'Mississippi' },
+          { value: 'Missouri' },
+          { value: 'Montana' },
+          { value: 'Nebraska' },
+          { value: 'Nevada' },
+          { value: 'New Hampshire' },
+          { value: 'New Jersey' },
+          { value: 'New Mexico' },
+          { value: 'New York' },
+          { value: 'North Carolina' },
+          { value: 'North Dakota' },
+          { value: 'Ohio' },
+          { value: 'Oklahoma' },
+          { value: 'Oregon' },
+          { value: 'Pennsylvania' },
+          { value: 'Rhode Island' },
+          { value: 'South Carolina' },
+          { value: 'South Dakota' },
+          { value: 'Tennessee' },
+          { value: 'Texas' },
+          { value: 'Utah' },
+          { value: 'Vermont' },
+          { value: 'Virginia' },
+          { value: 'Washington' },
+          { value: 'Washington, D.C.' },
+          { value: 'West Virginia' },
+          { value: 'Wisconsin' },
+          { value: 'Wyoming' },
+        ],
+        isRequired: true,
+        visibleIf: "{countryOfResidence} = 'United States'",
+        startWithNewLine: false,
+      }, {
+        name: "countryOfResidence_other",
+        title: "Country of residence / other:",
+        type: "text",
+        isRequired: true,
+        startWithNewLine: false,
+        placeholder: 'Please specify the country of residence',
+        visibleIf: "{countryOfResidence} = 'Other'"
+
+      }, {
+        name: "cityOfResidence",
+        title: "City of residence:",
+        type: "text",
+        isRequired: true,
+        startWithNewLine: false,
+      }, {
+        name: "multipleEthnicities",
+        title: "Do you identify with more than 1 ethnicity?",
+        type: "boolean",
+        isRequired: true,
+      }, {
         name: "technology",
         title: "What industry do you work in?",
         type: "dropdown",
@@ -128,16 +208,24 @@ const surveyJson = {
         html: `<h4 style="text-align: center;">`
           + `Identification`
           + `</h4>`
-      },
+      }, {
+        type: "html",
+        html: `<p><span style="font-weight: 400;">Please upload an image of your ID, preferably driver’s license. You need to hide the </span><span style="font-weight: 400;">address, social security number, ID number on the documents you upload.</span></p>
+        <p>We will need to confirm your identity to qualify you for the study.</p>`
+      }
+      ,
       {
-        "type": "file",
-        "title": "Driver's license or other form of identification",
-        "name": "identificationFile",
-        "storeDataAsText": false,
-        "waitForUpload": true,
-        "allowMultiple": false,
-        "maxSize": 10240000,
-        "hideNumber": true
+        type: "file",
+        title: "Driver's license or other form of identification",
+        name: "identificationFile",
+        storeDataAsText: false,
+        waitForUpload: true,
+        allowMultiple: false,
+        maxSize: 10240000,
+        acceptedTypes: "image/*"
+      }, {
+        type: "html",
+        html: `<div><span style="color: #ff0000;"><strong>NB: </strong>you MUST HIDE the address, social security number, ID number on the documents you upload.</span></div>`
       }]
   }, {
     type: "panel",
@@ -147,10 +235,14 @@ const surveyJson = {
       html: `<h4 style="text-align: center;">`
         + `Contributor Services Agreement`
         + `</h4>`
-        + `<span style="color:red">Please, kindly read and sign Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document).</span>`
-        + `<div style="width:100%;height:600px;overflow:auto;border:1px solid #ccc">`
+    }, {
+      type: "html",
+      html: `<span style="color:red">Please, kindly read and sign Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document).</span>`
+    }, {
+      type: "html",
+      html: `<div style="width:100%;height:600px;overflow:auto;border:1px solid #333; padding-left:10px">`
         + `<p style="text-align: center;"><strong>INFORMATION COLLECTION, AGREEMENT, AND RELEASE</strong></p>
-        <p><span style="font-weight: 400;">Thank you for your interest in Project Denali (the “</span><strong>Project</strong><span style="font-weight: 400;">”). Please read the description below, and if you are interested in participating, review and execute the Contributor Services Agreement and Release.&nbsp;</span></p>
+        <p><span style="font-weight: 400;">Thank you for your interest in Project Foraker (the “</span><strong>Project</strong><span style="font-weight: 400;">”). Please read the description below, and if you are interested in participating, review and execute the Contributor Services Agreement and Release.&nbsp;</span></p>
         <p><strong>Process of Data Collection</strong><strong>:</strong><span style="font-weight: 400;">&nbsp; TIAI is collecting the information that you submit on behalf of a non-affiliated customer in the technology industry (“</span><strong>Customer</strong><span style="font-weight: 400;">”).&nbsp;&nbsp;</span></p>
         <p><span style="font-weight: 400;">TIAI is collecting the information below to determine your eligibility to participate in a research study on behalf of our Customer. If you meet the criteria [established by our Customer], then we will provide you with a link in which to submit additional information.</span></p>
         <p><strong>Data Collected</strong><span style="font-weight: 400;">: </span><em><span style="font-weight: 400;">&nbsp;</span></em><span style="font-weight: 400;">TIAI is collecting the following information directly from participants</span></p>
@@ -315,6 +407,15 @@ const surveyJson = {
       penColor: "black",
       isRequired: true
     }]
+  }, {
+    type: "panel",
+    name: "otherInformation",
+    elements: [{
+      type: "html",
+      html: `<h4 style="text-align: center;">`
+        + `Other Information`
+        + `</h4>`
+    }]
   }]
 };
 
@@ -365,6 +466,8 @@ function App() {
       };
       fileReader.readAsDataURL(file);
     });
+
+
   });
 
   // Handles file removal
@@ -387,11 +490,15 @@ function App() {
     }
     options.callback("success");
   });
+
   survey.onComplete.add(function (sender, options) {
-    console.log(sender.data['signature']);
+
     const pid = generateRandomNumber();
-    const byteChars = atob(sender.data['signature'].replace(/^data:image\/(png|jpg);base64,/, ""));
-    const byteArrays = []
+    const byteChars = atob(sender.data['signature'].replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
+    const idByteChars = atob(sender.data['identificationFile'][0]['content'].replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
+    const byteArrays = [];
+    const idByteArrays = []
+
 
     for (let offset = 0; offset < byteChars.length; offset += 512) {
       const slice = byteChars.slice(offset, offset + 512);
@@ -404,15 +511,34 @@ function App() {
       const byteArray = new Uint8Array(byteNumbers);
       byteArrays.push(byteArray);
 
-
-
     }
+
+    for (let offset = 0; offset < idByteChars.length; offset += 512) {
+      const slice = idByteChars.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      idByteArrays.push(byteArray);
+    }
+
     const imageBlob = new Blob(byteArrays, { type: 'image/png' });
+    const idImageBlob = new Blob(idByteArrays, { type: sender.data['identificationFile'][0]['type'] });
+
 
     writeRegistry(pid, sender.data);
     //storage.ref(`foraker/participants/${pid}/sla/${pid}`).put(imageBlob)
-    const storageRef = ref(storage, `foraker/participants/${pid}/sla/${pid}.png`);
-    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+    const storageRef = ref(storage, `foraker/participants/${pid}/sla/${pid}_sla.png`);
+
+    uploadBytesResumable(storageRef, imageBlob);
+
+    const idStorageRef = ref(storage, `foraker/participants/${pid}/identification/${pid}_identification.jpeg`)
+    uploadBytesResumable(idStorageRef, idImageBlob);
+
 
     writeRegistry(pid, sender.data);
   });
