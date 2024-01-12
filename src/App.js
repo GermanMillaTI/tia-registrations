@@ -7,49 +7,103 @@ import { storage } from './firebase/config';
 import { ref, uploadBytesResumable } from "firebase/storage";
 
 const surveyJson = {
-
-  pages: [
-    {
-      elements: [{
-        type: "html",
-        html: `<div style="text-align: center;">`
-          + `<div style="text-align: left;">`
-          + `<p style="text-align: center;"><span><strong>Onsite Research Study in Sunnyvale</strong></span></p>`
-          + `<p><span>Jump on an exclusive opportunity to make $125 in an hour by providing feedback on a new consumer product.&nbsp;</span></p>`
-          + `<p><span><span style="font-weight: 400;">TELUS International is looking for </span><span style="font-weight: 400;">people interested in joining an onsite study in Sunnyvale, California.</span></span></p>`
-          + `<br/>`
-          + `<ul>`
-          + `<li class="done" aria-level="1"><span><strong>Earn $125 for completing a 1-hour session</strong></span></li>`
-          + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">All ages 18-65 are qualified to participate</span></li>`
-          + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be legally authorized to work in the US</span></li>`
-          + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak and understand English</span></li>`
-          + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Willing to be present in a recorded session</span></li>`
-          + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Free parking available onsite</span></li>`
-          + `</ul>`
-          + `<br/>`
-          + `<p><span>Participants will be photographed and video-recorded while performing basic movements, which may include walking, sitting, standing up, different gestures, or facial expressions. The tasks can be easily completed by anyone and do not require prior experience or special skills. All you need is one hour to visit our site for an appointment Monday-Friday.</span></p>`
-          + `<p><span style="font-weight: 400;">Payments will be made via Hyperwallet, where you can choose PayPal, bank transfer, or Venmo as the payment method.</span></p>`
-          + `<p><span><span style="font-weight: 400;">Any information you provide in connection with the Project will be kept secure &amp; confidential. Your data is protected by our </span><a href="https://www.telusinternational.com/privacypolicy/contributors" target="_blank" rel="noopener"><span style="font-weight: 400;">Privacy Policy</span></a><span style="font-weight: 400;">.</span></span></p>`
-          + `<p><span>TELUS International will contact selected participants to book an appointment.</span></p>`
-          + `</div>`
-          + `</div>`
-      }, {
+  showQuestionNumbers: false,
+  elements: [{
+    type: "panel",
+    name: "introduction",
+    elements: [{
+      type: "html",
+      html: `<div style="text-align: center;">`
+        + `<div style="text-align: left;">`
+        + `<h3 style="text-align: center;"><strong>Onsite Research Study in Sunnyvale</strong></h3></br>`
+        + `<p><span>Jump on an exclusive opportunity to make $125 in an hour by providing feedback on a new consumer product.&nbsp;</span></p>`
+        + `<p><span><span style="font-weight: 400;">TELUS International is looking for </span><span style="font-weight: 400;">people interested in joining an onsite study in Sunnyvale, California.</span></span></p>`
+        + `<br/>`
+        + `<ul>`
+        + `<li class="done" aria-level="1"><span><strong>Earn $125 for completing a 1-hour session</strong></span></li>`
+        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">All ages 18-65 are qualified to participate</span></li>`
+        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be legally authorized to work in the US</span></li>`
+        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak and understand English</span></li>`
+        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Willing to be present in a recorded session</span></li>`
+        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Free parking available onsite</span></li>`
+        + `</ul>`
+        + `<br/>`
+        + `<p><span>Participants will be photographed and video-recorded while performing basic movements, which may include walking, sitting, standing up, different gestures, or facial expressions. The tasks can be easily completed by anyone and do not require prior experience or special skills. All you need is one hour to visit our site for an appointment Monday-Friday.</span></p>`
+        + `<p><span style="font-weight: 400;">Payments will be made via Hyperwallet, where you can choose PayPal, bank transfer, or Venmo as the payment method.</span></p>`
+        + `<p><span><span style="font-weight: 400;">Any information you provide in connection with the Project will be kept secure &amp; confidential. Your data is protected by our </span><a href="https://www.telusinternational.com/privacypolicy/contributors" target="_blank" rel="noopener"><span style="font-weight: 400;">Privacy Policy</span></a><span style="font-weight: 400;">.</span></span></p>`
+        + `<p><span>TELUS International will contact selected participants to book an appointment.</span></p>`
+        + `</div>`
+        + `</div>`
+    }]
+  }, {
+    type: "panel",
+    name: "personalInfo",
+    elements: [
+      {
         type: "html",
         html: `<h4 style="text-align: center;">`
           + `Personal Information`
           + `</h4>`
-      }, {
-        name: "FirstName",
-        title: "Enter your first name:",
+      },
+      {
+        name: "firstName",
+        title: "First name:",
         type: "text",
         isRequired: true
-      }, {
-        name: "LastName",
-        title: "Enter your last name:",
+      },
+      {
+        name: "lastName",
+        title: "Last name:",
         type: "text",
+        isRequired: true,
+        startWithNewLine: false
+      }, {
+        name: "email",
+        type: "text",
+        title: "Email address:",
+        inputMask: "email",
+        validators: [
+          { type: "email", text: "Value must be a valid email" }
+        ],
+        isRequired: true,
+      }, {
+        name: "phone",
+        type: "text",
+        title: "Phone number:",
+        inputMask: "phone",
+        inputFormat: "+1(999)-999-9999",
+        isRequired: true,
+        startWithNewLine: false
+      }, {
+        name: "gender",
+        title: "Gender at birth:",
+        type: "dropdown",
+        choices: [
+          { value: 'Male' },
+          { value: 'Female' },
+          { value: 'Non-binary' },
+          { value: 'Prefer not to say' }
+        ],
         isRequired: true
       }, {
-        name: "Technology",
+        name: "dateOfBirth",
+        title: "Date of birth:",
+        type: "text",
+        inputType: "date",
+        isRequired: true,
+        startWithNewLine: false
+      }, {
+        name: "countryOfResidence",
+        title: "Country of residence:",
+        type: "dropdown",
+        choices: [
+          { value: 'United States' },
+          { value: 'Other' },
+
+        ],
+        isRequired: true
+      }, {
+        name: "technology",
         title: "What industry do you work in?",
         type: "dropdown",
         choices: [
@@ -63,16 +117,39 @@ const surveyJson = {
           { value: 'Technology' },
         ],
         isRequired: true
-      }]
-    }, {
-      elements: [{
+      }
+    ]
+  }, {
+    type: "panel",
+    name: "identification",
+    elements: [
+      {
         type: "html",
         html: `<h4 style="text-align: center;">`
-          + `Contributor Services Agreement`
+          + `Identification`
           + `</h4>`
-          + `<span style="color:red">Please, kindly read and sign Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document).</span>`
-          + `<div style="width:100%;height:600px;overflow:auto;border:1px solid #ccc">`
-          + `<p style="text-align: center;"><strong>INFORMATION COLLECTION, AGREEMENT, AND RELEASE</strong></p>
+      },
+      {
+        "type": "file",
+        "title": "Driver's license or other form of identification",
+        "name": "identificationFile",
+        "storeDataAsText": false,
+        "waitForUpload": true,
+        "allowMultiple": false,
+        "maxSize": 10240000,
+        "hideNumber": true
+      }]
+  }, {
+    type: "panel",
+    name: "contributorServiceAgreement",
+    elements: [{
+      type: "html",
+      html: `<h4 style="text-align: center;">`
+        + `Contributor Services Agreement`
+        + `</h4>`
+        + `<span style="color:red">Please, kindly read and sign Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document).</span>`
+        + `<div style="width:100%;height:600px;overflow:auto;border:1px solid #ccc">`
+        + `<p style="text-align: center;"><strong>INFORMATION COLLECTION, AGREEMENT, AND RELEASE</strong></p>
         <p><span style="font-weight: 400;">Thank you for your interest in Project Denali (the “</span><strong>Project</strong><span style="font-weight: 400;">”). Please read the description below, and if you are interested in participating, review and execute the Contributor Services Agreement and Release.&nbsp;</span></p>
         <p><strong>Process of Data Collection</strong><strong>:</strong><span style="font-weight: 400;">&nbsp; TIAI is collecting the information that you submit on behalf of a non-affiliated customer in the technology industry (“</span><strong>Customer</strong><span style="font-weight: 400;">”).&nbsp;&nbsp;</span></p>
         <p><span style="font-weight: 400;">TIAI is collecting the information below to determine your eligibility to participate in a research study on behalf of our Customer. If you meet the criteria [established by our Customer], then we will provide you with a link in which to submit additional information.</span></p>
@@ -200,42 +277,45 @@ const surveyJson = {
         <li><strong>Enforceability</strong><span style="font-weight: 400;">. In the event any portion of the arbitration provision and/or the Agreement is deemed unenforceable, the remainder of the arbitration provision and/or the Agreement will remain in full force and effect.<br /><br /></span></li>
         <li><strong>Prevailing Language.</strong><span style="font-weight: 400;"> The parties have expressly requested that this contract be drafted in the English language. </span><em><span style="font-weight: 400;">Les parties ont expressément requis que ce contrat soit rédigée en anglais. </span></em><span style="font-weight: 400;">If this Agreement is translated into a language other than English for any purpose, the English version shall prevail in the event of any differences, questions or disputes concerning the meaning, form, validity or interpretation of this Agreement.<br /></span></li>
         </ol>`
-          + `</div>`
-      }, {
-        name: "agreementConfirmation",
-        title: "Confirmation",
-        type: "checkbox",
-        choices: [
-          { value: 'I confirm and agree with all of the above' },
-        ],
-        isRequired: true
-      }, {
-        name: "signatureFirstName",
-        title: "First name:",
-        type: "text",
-        isRequired: true
-      }, {
-        name: "signatureLastName",
-        title: "Last name:",
-        type: "text",
-        isRequired: true
-      }, {
-        type: "signaturepad",
-        name: "signature",
-        title: "Signature",
-        signatureWidth: 600,
-        penColor: "black",
-        isRequired: true
-      }, {
-        name: "Date",
-        title: "Signature Date",
-        type: "text",
-        inputType: "date",
-        defaultValueExpression: "today()",
-        minValueExpression: "today()",
-        isRequired: true,
-      }]
+        + `</div>`
+    }, {
+      name: "agreementConfirmation",
+      title: "Confirmation",
+      type: "checkbox",
+      choices: [
+        { value: 'I confirm and agree with all of the above' },
+      ],
+      isRequired: true
+    }, {
+      name: "signatureFirstName",
+      title: "First name:",
+      type: "text",
+      isRequired: true
+    }, {
+      name: "signatureLastName",
+      title: "Last name:",
+      type: "text",
+      isRequired: true,
+      startWithNewLine: false
+    }, {
+      name: "Date",
+      title: "Signature Date",
+      type: "text",
+      inputType: "date",
+      defaultValueExpression: "today()",
+      minValueExpression: "today()",
+      isRequired: true,
+      startWithNewLine: false
+
+    }, {
+      type: "signaturepad",
+      name: "signature",
+      title: "Signature",
+      signatureWidth: 600,
+      penColor: "black",
+      isRequired: true
     }]
+  }]
 };
 
 // Generate a random 8-digit number
@@ -251,7 +331,62 @@ function generateRandomNumber() {
 
 function App() {
   const survey = new Model(surveyJson);
+  const tempFileStorage = {};
 
+  survey.onUploadFiles.add((_, options) => {
+    // Add files to the temporary storage
+    if (tempFileStorage[options.name] !== undefined) {
+      tempFileStorage[options.name].concat(options.files);
+    } else {
+      tempFileStorage[options.name] = options.files;
+    }
+    // Load file previews
+    const content = [];
+    options.files.forEach(file => {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        content.push({
+          name: file.name,
+          type: file.type,
+          content: fileReader.result,
+          file: file
+        });
+        if (content.length === options.files.length) {
+          // Return a file for preview as a { file, content } object 
+          options.callback(
+            content.map(fileContent => {
+              return {
+                file: fileContent.file,
+                content: fileContent.content
+              };
+            })
+          );
+        }
+      };
+      fileReader.readAsDataURL(file);
+    });
+  });
+
+  // Handles file removal
+  survey.onClearFiles.add((_, options) => {
+    // Empty the temporary file storage if "Clear All" is clicked 
+    if (options.fileName === null) {
+      tempFileStorage[options.name] = [];
+      options.callback("success");
+      return;
+    }
+
+    // Remove an individual file
+    const tempFiles = tempFileStorage[options.name];
+    if (!!tempFiles) {
+      const fileInfoToRemove = tempFiles.filter(file => file.name === options.fileName)[0];
+      if (fileInfoToRemove) {
+        const index = tempFiles.indexOf(fileInfoToRemove);
+        tempFiles.splice(index, 1);
+      }
+    }
+    options.callback("success");
+  });
   survey.onComplete.add(function (sender, options) {
     console.log(sender.data['signature']);
     const pid = generateRandomNumber();
@@ -280,7 +415,8 @@ function App() {
     const uploadTask = uploadBytesResumable(storageRef, imageBlob);
 
     writeRegistry(pid, sender.data);
-  })
+  });
+
 
   return (
     <>
