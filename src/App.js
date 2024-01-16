@@ -12,7 +12,11 @@ import * as SurveyCore from "survey-core";
 
 
 const localeSettings = {
-  completeText: "Submit"
+  completeText: "Submit",
+  requiredError: "This item is required",
+  loadingFile: "Loading...",
+  chooseFileCaption: "Select a file",
+  pageNextText: "Next"
 
 }
 
@@ -41,20 +45,27 @@ function generateRandomNumber() {
 function App() {
   let millisecsStart;
   let pid;
+  let clientIp;
   const survey = new Model(surveyJson);
   const tempFileStorage = {};
 
 
   survey.onAfterRenderPage.add((_, options) => {
     millisecsStart = String(new Date().getMilliseconds()).padStart(3, '0');
+
+    fetch('https://api.ipify.org/?format=json')
+      .then(response => response.json())
+      .then(data => clientIp = data.ip)
+      .catch(error => console.log(error));
   });
 
 
   survey.onUploadFiles.add((_, options) => {
 
+    document.getElementById("loading").style.display = "block";
+
     pid = generateRandomNumber().concat(millisecsStart);
 
-    console.log(pid);
     // Add files to the temporary storage
     if (tempFileStorage[options.name] !== undefined) {
       tempFileStorage[options.name].concat(options.files);
@@ -108,6 +119,7 @@ function App() {
                   // Reject if upload is not successful
                   reject(new Error("Upload failed"));
                 }
+                document.getElementById("loading").style.display = "";
               }).catch(error => {
                 reject(error);
               });
@@ -153,6 +165,8 @@ function App() {
   survey.onComplete.add(function (sender, options) {
 
 
+    sender.setValue('clientIp', clientIp);
+    sender.setValue('timestamp', new Date());
 
     const byteChars = atob(sender.data['signature'].replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
     const byteArrays = [];
@@ -182,15 +196,17 @@ function App() {
 
 
     writeRegistry(pid, sender.data);
+
+    console.log(sender.data);
   });
 
 
   return (
-    <>
-
+    <div>
+      <div id='loading'></div>
       <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} />
       <Survey model={survey}></Survey>
-    </>
+    </div>
   );
 }
 
