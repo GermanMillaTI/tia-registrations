@@ -2,6 +2,7 @@ export const surveyJson = {
 
     showQuestionNumbers: false,
     waitForUpload: true,
+    completedHtml: "<div style=\"max-width:688px;text-align:center;margin: 16px auto;\">\n\n<div style=\"padding:0 24px;\">\n<h4>Thank you for your registration.</h4>\n<br>\n<p>We will review your registration and contact you with any further steps.</p>\n</div>\n\n</div>\n",
     elements: [{
         type: "panel",
         name: "introduction",
@@ -73,10 +74,10 @@ export const surveyJson = {
                 title: "Gender at birth:",
                 type: "dropdown",
                 choices: [
-                    { value: 'Male' },
-                    { value: 'Female' },
-                    { value: 'Non-binary' },
-                    { value: 'Prefer not to say' }
+                    'Male',
+                    'Female',
+                    'Non-binary',
+                    'Prefer not to say'
                 ],
                 isRequired: true
             }, {
@@ -174,7 +175,8 @@ export const surveyJson = {
             }, {
                 name: "isMultipleEthnicities",
                 title: "Do you identify with more than 1 ethnicity?",
-                type: "boolean",
+                type: "radiogroup",
+                choices: ["Yes", "No"],
                 isRequired: true,
             }, {
                 type: "radiogroup",
@@ -195,7 +197,7 @@ export const surveyJson = {
                     "White - Southern European [Italian, Southern French, Spanish, Portuguese, Southern European (not listed)]",
                     "Prefer not to state"
                 ],
-                visibleIf: '{isMultipleEthnicities} = false',
+                visibleIf: '{isMultipleEthnicities} = "No"',
                 showOtherItem: true,
                 otherText: "Other",
                 isRequired: true
@@ -218,7 +220,7 @@ export const surveyJson = {
                     "White - Southern European [Italian, Southern French, Spanish, Portuguese, Southern European (not listed)]",
                     "Prefer not to state"
                 ],
-                visibleIf: '{isMultipleEthnicities} = true',
+                visibleIf: '{isMultipleEthnicities} = "Yes"',
                 showOtherItem: true,
                 otherText: "Other",
                 isRequired: true
@@ -249,12 +251,14 @@ export const surveyJson = {
             }, {
                 name: "isPregnant",
                 title: "Are you pregnant?",
-                type: "boolean",
+                type: "radiogroup",
+                choices: ["Yes", "No"],
                 isRequired: true,
             }, {
                 name: "vlog",
                 title: "Do you have a blog or vlog?",
-                type: "boolean",
+                type: "radiogroup",
+                choices: ["Yes", "No"],
                 isRequired: true,
             }, {
                 name: "vlogUrl",
@@ -262,11 +266,12 @@ export const surveyJson = {
                 type: "text",
                 isRequired: true,
                 startWithNewLine: false,
-                visibleIf: '{vlog} = true'
+                visibleIf: '{vlog} = "Yes"'
             }, {
                 name: "onsiteAvailability",
                 title: "Are you able to come for a one hour study appointment at our onsite location in Sunnyvale, California?",
-                type: "boolean",
+                type: "radiogroup",
+                choices: ["Yes", "No"],
                 isRequired: true,
             }, {
                 name: "noAvailabilityReason",
@@ -284,7 +289,7 @@ export const surveyJson = {
                     'Something else - please provide more information in the feedback if you want.',
                     'I do not want to answer this question.'
                 ],
-                visibleIf: "{onsiteAvailability} = false",
+                visibleIf: "{onsiteAvailability} = 'No'",
                 maxSelectedChoices: 10,
                 isRequired: true
             }, {
@@ -321,7 +326,7 @@ export const surveyJson = {
                 startWithNewLine: false
             }, {
                 type: "html",
-                html: `<strong>What is your skin tone (before sun exposure)? Please select one of the options below, drawn from the dermatologically recognized <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale#/">Fitzpatrick phototyping scale</a>:</strong><br /><br /><img src="https://fs30.formsite.com/LB2014/images/scale.jpeg" alt="" width="954" height="262" />`
+                html: `<strong>What is your skin tone (before sun exposure)? Please select one of the options below, drawn from the dermatologically recognized <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale#/">Fitzpatrick phototyping scale</a>:</strong><br /><br /><img src="https://fs30.formsite.com/LB2014/images/scale.jpeg" alt="" max-width="500px"; width="100%" ; height="auto" />`
             }, {
                 name: "skinTone",
                 title: "\n",
@@ -360,9 +365,8 @@ export const surveyJson = {
                 storeDataAsText: false,
                 waitForUpload: true,
                 allowMultiple: false,
-                maxSize: 10240000,
-                acceptedTypes: "image/*",
-                maxWidth: "40%"
+                maxWidth: "40%",
+                isRequired: true
             }, {
                 type: "html",
                 html: `<div><span style="color: #ff0000;"><strong>NB: </strong>you MUST   HIDE the address, social security number, ID number on the documents you upload.</span></div>`
@@ -555,6 +559,7 @@ export const surveyJson = {
             name: "signature",
             title: "Signature",
             signatureWidth: 700,
+            signatureHeigth: 800,
             penColor: "black",
             isRequired: true
         }]
@@ -664,8 +669,7 @@ export const surveyJson = {
         }, {
             name: "interestedInRecruiting",
             title: "I'm interested in helping TELUS International find more participants like me: ",
-            type: "boolean",
-            isRequired: true,
+
         }, {
             type: "html",
             html: `<div><strong>TERMS &amp; CONDITIONS</strong></div>
