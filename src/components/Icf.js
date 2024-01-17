@@ -1,4 +1,4 @@
-function icf() {
+function Icf() {
 
     return (
         <div>
@@ -7,4 +7,4 @@ function icf() {
     )
 };
 
-export default icf;
+export default Icf;
