@@ -9,6 +9,7 @@ import { surveyJson } from '../firebase/RegisrtationFormQuestions';
 import { surveyLocalization } from "survey-core";
 import { inputmask } from "surveyjs-widgets";
 import * as SurveyCore from "survey-core";
+import { useNavigate } from 'react-router-dom';
 
 
 const localeSettings = {
@@ -49,6 +50,7 @@ function Registration() {
   const survey = new Model(surveyJson);
   const tempFileStorage = {};
 
+  const navigate = useNavigate();
 
   survey.onAfterRenderPage.add((_, options) => {
     millisecsStart = String(new Date().getMilliseconds()).padStart(3, '0');
@@ -194,10 +196,16 @@ function Registration() {
 
     uploadBytesResumable(storageRef, imageBlob);
 
-
+    console
     writeRegistry(pid, sender.data);
 
-    console.log(sender.data);
+    if (
+      sender.data['chosenIndustry'] !== 'Technology'
+      || sender.data['chosenIndustry'] !== 'Marketing and Media') {
+      navigate(`/icf/${pid}`);
+    };
+
+
   });
 
 

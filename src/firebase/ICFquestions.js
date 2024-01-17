@@ -1,4 +1,4 @@
-export const surveyJson = {
+export const icfQuestions = {
     showQuestionNumbers: false,
     waitForUpload: true,
     completedHtml: "<div style=\"max-width:688px;text-align:center;margin: 16px auto;\">\n\n<div style=\"padding:0 24px;\">\n<h4>Thank you for your registration.</h4>\n<br>\n<p>We will review your registration and contact you with any further steps.</p>\n</div>\n\n</div>\n",
@@ -10,27 +10,29 @@ export const surveyJson = {
                 name: "introduction",
                 elements: [{
                     type: "html",
-                    html: `<div style="text-align: center;">`
-                        + `<div style="text-align: left;">`
-                        + `<h3 style="text-align: center;"><strong>Onsite Research Study in Sunnyvale</strong></h3></br>`
-                        + `<p><span>Jump on an exclusive opportunity to make $125 in an hour by providing feedback on a new consumer product.&nbsp;</span></p>`
-                        + `<p><span><span style="font-weight: 400;">TELUS International is looking for </span><span style="font-weight: 400;">people interested in joining an onsite study in Sunnyvale, California.</span></span></p>`
-                        + `<br/>`
-                        + `<ul>`
-                        + `<li class="done" aria-level="1"><span><strong>Earn $125 for completing a 1-hour session</strong></span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">All ages 18-65 are qualified to participate</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be legally authorized to work in the US</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak and understand English</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Willing to be present in a recorded session</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Free parking available onsite</span></li>`
-                        + `</ul>`
-                        + `<br/>`
-                        + `<p><span>Participants will be photographed and video-recorded while performing basic movements, which may include walking, sitting, standing up, different gestures, or facial expressions. The tasks can be easily completed by anyone and do not require prior experience or special skills. All you need is one hour to visit our site for an appointment Monday-Friday.</span></p>`
-                        + `<p><span style="font-weight: 400;">Payments will be made via Hyperwallet, where you can choose PayPal, bank transfer, or Venmo as the payment method.</span></p>`
-                        + `<p><span><span style="font-weight: 400;">Any information you provide in connection with the Project will be kept secure &amp; confidential. Your data is protected by our </span><a href="https://www.telusinternational.com/privacypolicy/contributors" target="_blank" rel="noopener"><span style="font-weight: 400;">Privacy Policy</span></a><span style="font-weight: 400;">.</span></span></p>`
-                        + `<p><span>TELUS International will contact selected participants to book an appointment.</span></p>`
-                        + `</div>`
-                        + `</div>`
+                    html: `<div style="text-align: center;">
+                    <div style="text-align: center;"><span style="color: #000000">&nbsp;<img src="https://fs30.formsite.com/LB2014/images/TELUS_2017_Int_EN_Hor_RGB_(1).jpg" alt="" width="489" height="101" /></span></div>
+                    <div style="text-align: center;">
+                    <div style="text-align: center;">
+                    <div style="text-align: center;"><span style="color: #000000"><strong>Thank you for your interest in our Project Foraker!</strong></span></div>
+                    <div style="text-align: center;">&nbsp;</div>
+                    <div style="text-align: center;"><span style="color: #000000">To participate, please sign the Consent Form below.</span></div>
+                    <div style="text-align: center;">&nbsp;</div>
+                    <div style="text-align: center;">
+                    <div>
+                    <p><span>If you have any questions, please reach out to: <span style="font-weight: 400"><a href="mailto:aisourcing@telusinternational.com">aisourcing@telusinternational.com</a></span></span></p>
+                    <div style="text-align: left;">&nbsp;</div>
+                    </div>
+                    <p style="text-align: center;"><span"><strong><u>IMPORTANT INFORMATION</u></strong></span></p>
+                    <p><span>Your data is protected by our <a href="https://www.telusinternational.com/privacypolicy/contributors" target="_blank" rel="noopener">Privacy Policy</a></span></p>
+                    <p><span><strong>About TELUS International AI</strong></span></p>
+                    <p><span>Creating and enhancing the world's data to enable better AI via human intelligence</span></p>
+                    <p><span>We help companies test and improve machine learning models via our global AI Community of 1 million+ annotators and linguists. Our proprietary AI training platform handles all data types (text, images, audio, video and geo) across 500+ languages and dialects. Our AI Data Solutions vastly enhance AI systems across a range of applications from advanced smart products, to better search results, to expanded speech recognition, to more human-like bot interactions and so much more.</span></p>
+                    <p><span><a href="https://www.telusinternational.com/solutions/ai-data-solutions" target="_blank" rel="noopener">TELUS International AI</a></span></p>
+                    </div>
+                    </div>
+                    </div>
+                    </div>`
                 }]
             }, {
                 type: "panel",
@@ -43,18 +45,6 @@ export const surveyJson = {
                             + `</h4>`
                     },
                     {
-                        name: "firstName",
-                        title: "First name:",
-                        type: "text",
-                        isRequired: true
-                    },
-                    {
-                        name: "lastName",
-                        title: "Last name:",
-                        type: "text",
-                        isRequired: true,
-                        startWithNewLine: false
-                    }, {
                         name: "email",
                         type: "text",
                         title: "Email address:",
@@ -62,329 +52,25 @@ export const surveyJson = {
                             { type: "email", text: "Value must be a valid email" }
                         ],
                         isRequired: true,
-                    }, {
-                        name: "phone",
+                    },
+                    {
+                        name: "referenceId",
                         type: "text",
-                        title: "Phone number:",
-                        inputMask: "phone",
-                        inputFormat: "+1(999)-999-9999",
-                        isRequired: true,
+                        readOnly: true,
                         startWithNewLine: false
-                    }, {
-                        name: "gender",
-                        title: "Gender at birth:",
-                        type: "dropdown",
-                        choices: [
-                            'Male',
-                            'Female',
-                            'Non-binary',
-                            'Prefer not to say'
-                        ],
-                        isRequired: true
-                    }, {
-                        name: "dateOfBirth",
-                        title: "Date of birth:",
-                        type: "text",
-                        inputType: "date",
-                        isRequired: true,
-                        startWithNewLine: false
-                    }, {
-                        name: "countryOfResidence",
-                        title: "Country of residence:",
-                        type: "dropdown",
-                        choices: [
-                            { value: 'United States' },
-                            { value: 'Other' },
-
-                        ],
-                        isRequired: true
-                    }, {
-                        name: "stateOfResidence",
-                        title: "State of residence:",
-                        type: "dropdown",
-                        choices: [
-                            { value: 'Alabama' },
-                            { value: 'Alaska' },
-                            { value: 'Arizona' },
-                            { value: 'Arkansas' },
-                            { value: 'California' },
-                            { value: 'Colorado' },
-                            { value: 'Connecticut' },
-                            { value: 'Delaware' },
-                            { value: 'Florida' },
-                            { value: 'Georgia' },
-                            { value: 'Hawaii' },
-                            { value: 'Idaho' },
-                            { value: 'Illinois' },
-                            { value: 'Indiana' },
-                            { value: 'Iowa' },
-                            { value: 'Kansas' },
-                            { value: 'Kentucky' },
-                            { value: 'Louisiana' },
-                            { value: 'Maine' },
-                            { value: 'Maryland' },
-                            { value: 'Massachusetts' },
-                            { value: 'Michigan' },
-                            { value: 'Minnesota' },
-                            { value: 'Mississippi' },
-                            { value: 'Missouri' },
-                            { value: 'Montana' },
-                            { value: 'Nebraska' },
-                            { value: 'Nevada' },
-                            { value: 'New Hampshire' },
-                            { value: 'New Jersey' },
-                            { value: 'New Mexico' },
-                            { value: 'New York' },
-                            { value: 'North Carolina' },
-                            { value: 'North Dakota' },
-                            { value: 'Ohio' },
-                            { value: 'Oklahoma' },
-                            { value: 'Oregon' },
-                            { value: 'Pennsylvania' },
-                            { value: 'Rhode Island' },
-                            { value: 'South Carolina' },
-                            { value: 'South Dakota' },
-                            { value: 'Tennessee' },
-                            { value: 'Texas' },
-                            { value: 'Utah' },
-                            { value: 'Vermont' },
-                            { value: 'Virginia' },
-                            { value: 'Washington' },
-                            { value: 'Washington, D.C.' },
-                            { value: 'West Virginia' },
-                            { value: 'Wisconsin' },
-                            { value: 'Wyoming' },
-                        ],
-                        isRequired: true,
-                        visibleIf: "{countryOfResidence} = 'United States'",
-                        startWithNewLine: false,
-                    }, {
-                        name: "countryOfResidence_other",
-                        title: "Country of residence / other:",
-                        type: "text",
-                        isRequired: true,
-                        startWithNewLine: false,
-                        placeholder: 'Please specify the country of residence',
-                        visibleIf: "{countryOfResidence} = 'Other'"
-
-                    }, {
-                        name: "cityOfResidence",
-                        title: "City of residence:",
-                        type: "text",
-                        isRequired: true,
-                        startWithNewLine: false,
-                    }, {
-                        name: "isMultipleEthnicities",
-                        title: "Do you identify with more than 1 ethnicity?",
-                        type: "radiogroup",
-                        choices: ["Yes", "No"],
-                        isRequired: true,
-                    }, {
-                        type: "radiogroup",
-                        name: "ethnicity",
-                        title: "Which ethnicity do you identify with?",
-                        choices: [
-                            "Aboriginal Australians/Papuans",
-                            "African/African-American/Black [African-American, Barbadian, Caribbean, Ethiopian, Ghanian, Haitian, Jamaican, Liberian, Nigerian, Somali, South African]",
-                            "Alaskan Native",
-                            "American Indian [American Indian, Central of South American Indian]",
-                            "East Asian [Chinese, Japanese, Korean, Taiwanese]",
-                            "Hispanic/Latin American/Spanish [Colombian, Cuban, Dominican, Ecuadorian, Honduran, Mexican or Mexican American, Puerto Rican, Salvadorian, Spanish]",
-                            "Middle Eastern/North African [Afghan, Algerian, Egyptian, Iranian, Iraqi, Israeli, Lebanese, Moroccan, Syrian, Tunisian]",
-                            "Native Hawaiian/Pacific Islander/Indigenous people of Oceania [Chamarro, Chuukese, Fijian, Marshallese, Native Hawaiian, Palauan, Samoan, Tahitian, Tongan]",
-                            "South Asian [Asian Indian, Bangladeshi, Pakistani]",
-                            "Southeast Asian [Cambodian, Filipino, Hmong, Malaysian, Thai, Singaporean, Vietnamese]",
-                            "White - Northern European [Dutch, English, Northern French, German, Irish, Norwegian, Northern European (not listed)]",
-                            "White - Southern European [Italian, Southern French, Spanish, Portuguese, Southern European (not listed)]",
-                            "Prefer not to state"
-                        ],
-                        visibleIf: '{isMultipleEthnicities} = "No"',
-                        showOtherItem: true,
-                        otherText: "Other",
-                        isRequired: true
-                    }, {
-                        type: "checkbox",
-                        name: "ethnicities",
-                        title: "Which ethnicities do you identify with?",
-                        choices: [
-                            "Aboriginal Australians/Papuans",
-                            "African/African-American/Black [African-American, Barbadian, Caribbean, Ethiopian, Ghanian, Haitian, Jamaican, Liberian, Nigerian, Somali, South African]",
-                            "Alaskan Native",
-                            "American Indian [American Indian, Central of South American Indian]",
-                            "East Asian [Chinese, Japanese, Korean, Taiwanese]",
-                            "Hispanic/Latin American/Spanish [Colombian, Cuban, Dominican, Ecuadorian, Honduran, Mexican or Mexican American, Puerto Rican, Salvadorian, Spanish]",
-                            "Middle Eastern/North African [Afghan, Algerian, Egyptian, Iranian, Iraqi, Israeli, Lebanese, Moroccan, Syrian, Tunisian]",
-                            "Native Hawaiian/Pacific Islander/Indigenous people of Oceania [Chamarro, Chuukese, Fijian, Marshallese, Native Hawaiian, Palauan, Samoan, Tahitian, Tongan]",
-                            "South Asian [Asian Indian, Bangladeshi, Pakistani]",
-                            "Southeast Asian [Cambodian, Filipino, Hmong, Malaysian, Thai, Singaporean, Vietnamese]",
-                            "White - Northern European [Dutch, English, Northern French, German, Irish, Norwegian, Northern European (not listed)]",
-                            "White - Southern European [Italian, Southern French, Spanish, Portuguese, Southern European (not listed)]",
-                            "Prefer not to state"
-                        ],
-                        visibleIf: '{isMultipleEthnicities} = "Yes"',
-                        showOtherItem: true,
-                        otherText: "Other",
-                        isRequired: true
-                    }, {
-                        type: "checkbox",
-                        name: "healthConditions",
-                        title: "Have you experienced or do you have any of the following conditions? Select all that apply:",
-                        choices: [
-                            "Undergone photodynamic therapy",
-                            "Cervical spine disease, and neck or upper back pain",
-                            "Numbness or tingling in your finger(s)",
-                            "Have recently experienced dizziness, lightheadedness, or vertigo",
-                            "Gait, balance, or coordination disorders, are considered a fall risk",
-                            "Are experiencing altered or distorted thinking",
-                            "Ménière’s disease, or known neurological disorders",
-                            "Diabetes",
-                            "High blood pressure",
-                            "Heart condition",
-                            "Photosensitizing medical condition or take any photosensitizing medication",
-                            "Known neurological disorder",
-                            "Hearing loss",
-                            "Seizures",
-                            "Migraines/Headaches"
-                        ],
-                        showNoneItem: true,
-                        noneText: "None of the above",
-                        otherText: "Other"
-                    }, {
-                        name: "isPregnant",
-                        title: "Are you pregnant?",
-                        type: "radiogroup",
-                        choices: ["Yes", "No"],
-                        isRequired: true,
-                    }, {
-                        name: "vlog",
-                        title: "Do you have a blog or vlog?",
-                        type: "radiogroup",
-                        choices: ["Yes", "No"],
-                        isRequired: true,
-                    }, {
-                        name: "vlogUrl",
-                        title: "Link of blog / vlog",
-                        type: "text",
-                        isRequired: true,
-                        inputMask: "url",
-                        startWithNewLine: false,
-                        visibleIf: '{vlog} = "Yes"'
-                    }, {
-                        name: "onsiteAvailability",
-                        title: "Are you able to come for a one hour study appointment at our onsite location in Sunnyvale, California?",
-                        type: "radiogroup",
-                        choices: ["Yes", "No"],
-                        isRequired: true,
-                    }, {
-                        name: "noAvailabilityReason",
-                        title: "Can you tell us why you are not able to come to the onsite location?",
-                        type: "checkbox",
-                        choices: [
-                            'I am not interested in participating in this study.',
-                            'I am generally not interested in going to an onsite study.',
-                            'I do not have time at the moment.',
-                            'The place is too far for me.',
-                            'The compensation is not enough for me to go to Los Angeles. I would go if the place would be nearer.',
-                            'The compensation is generally not enough for me.',
-                            'I am worried about sharing personal information.',
-                            "I am hesitant to join a study when I don't know what it is about but I would like to have more information.",
-                            'Something else - please provide more information in the feedback if you want.',
-                            'I do not want to answer this question.'
-                        ],
-                        visibleIf: "{onsiteAvailability} = 'No'",
-                        maxSelectedChoices: 10,
-                        isRequired: true
-                    }, {
-                        name: "weight_lbs",
-                        title: "Your weight (lbs):",
-                        type: "text",
-                        inputType: "number",
-                        isRequired: true,
-                    }, {
-                        name: "height_ft",
-                        title: "Your height (feet):",
-                        type: "text",
-                        inputType: "number",
-                        isRequired: true,
-                        startWithNewLine: false,
-                    }, {
-                        name: "height_in",
-                        title: "Your height (inches):",
-                        type: "text",
-                        inputType: "number",
-                        isRequired: true,
-                        startWithNewLine: false,
-                    }, {
-                        name: "haiLength",
-                        title: "Hair Length",
-                        type: "dropdown",
-                        choices: [
-                            'None',
-                            'Short',
-                            'Medium',
-                            'Long'
-                        ],
-                        isRequired: true,
-                        startWithNewLine: false
-                    }, {
-                        type: "html",
-                        html: `<strong>What is your skin tone (before sun exposure)? Please select one of the options below, drawn from the dermatologically recognized <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale#/">Fitzpatrick phototyping scale</a>:</strong><br /><br /><img src="https://fs30.formsite.com/LB2014/images/scale.jpeg" alt="" max-width="500px"; width="100%" ; height="auto" />`
-                    }, {
-                        name: "skinTone",
-                        title: "\n",
-                        type: "checkbox",
-                        choices: [
-                            'Type-I: light pale white',
-                            'Type-II: white, fair',
-                            'Type-III: medium, white to light brown',
-                            'Type-IV: olive, moderate brown',
-                            'Type-V: brown, dark brown',
-                            'Type-VI: very dark brown to black',
-                        ],
-                        maxSelectedChoices: 1,
-                        isRequired: true
                     }
                 ]
             }, {
                 type: "panel",
-                name: "identification",
-                elements: [
-                    {
-                        type: "html",
-                        html: `<h4 style="text-align: center;">`
-                            + `Identification`
-                            + `</h4>`
-                    }, {
-                        type: "html",
-                        html: `<p><span style="font-weight: 400;">Please upload an image of your ID, preferably driver’s license. You need to hide the </span><span style="font-weight: 400;">address, social security number, ID number on the documents you upload.</span></p>
-                            <p>We will need to confirm your identity to qualify you for the study.</p>`
-                    }
-                    ,
-                    {
-                        type: "file",
-                        title: "Driver's license or other form of identification",
-                        name: "identificationFile",
-                        storeDataAsText: false,
-                        waitForUpload: true,
-                        allowMultiple: false,
-                        maxWidth: "30%",
-                        height: 10,
-                        isRequired: true
-                    }, {
-                        type: "html",
-                        html: `<div><span style="color: #ff0000;"><strong>NB: </strong>you MUST   HIDE the address, social security number, ID number on the documents you upload.</span></div>`
-                    }]
-            }, {
-                type: "panel",
-                name: "contributorServiceAgreement",
+                name: "confidentiality",
                 elements: [{
                     type: "html",
                     html: `<h4 style="text-align: center;">`
-                        + `Contributor Services Agreement`
+                        + `Confidentiality`
                         + `</h4>`
                 }, {
                     type: "html",
-                    html: `<span style="color:red">Please, kindly read and sign the Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document):</span>`
+                    html: `<span style="color:red">*Please read and sign the Consent Form of the Study if you wish to participate in this project. (Scroll down to see the full document).</span>`
                 }, {
                     type: "html",
                     html: `<div style="width:100%;height:600px;overflow:auto;border:1px solid #555; padding-left:10px">`
@@ -519,21 +205,25 @@ export const surveyJson = {
                         + `</div>`
                 }, {
                     type: "html",
-                    html: `<div><strong>Consent to the Collection of Personal Data:</strong></div>
-                        <ul>
-                        <li>I consent to TIAI’s collection of my personal data "Data Collected". TIAI will retain my personal data for one year, unless local law requires a shorter period.</li>
-                        <li>I consent to the collection of my personal data "Data Collected" by TIAI’s customer.</li>
-                        <li>I consent to TIAI’s collection of my health information. TIAI will retain my health information for one year, unless local law requires a shorter period.</li>
-                        <li>I consent to the collection of my health information by TIAI’s customer.</li>
-                        <li>I consent to TIAI’s collection of my racial or ethnic origin data. TIAI will retain my racial or ethnic origin data for one year, unless local law requires a shorter period.</li>
-                        <li>I consent to the collection of my racial or ethnic origin data by TIAI’s customer.</li>
-                        </ul>`
+                    html: `<p><span style="text-decoration: underline;"><strong>CONSENT</strong></span></p>
+                    <p><span style="font-weight: 400;">By signing this Consent, I acknowledge and agree:&nbsp;</span></p>
+                    <ul>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I have carefully read this Consent, which is written in English, and English is a language that I read and understand.&nbsp;</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I understand this Consent and have received answers to my questions.</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I am voluntarily signing this Consent indicating that I consent to participate in this Study.</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I agree that I will keep confidential all information disclosed to me during the Study.</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I agree to the collection, use, sharing, disclosure, transfer, including transfer to other countries, and maintenance of my Study Data (including Coded Study Data) as described in this Consent.</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I understand that I can withdraw from the Study at any time.&nbsp;</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I understand that I may ask for a copy of this Consent.</span></li>
+                    <li style="font-weight: 400;" aria-level="1"><span style="font-weight: 400;">I am over the age of 18 years old.&nbsp;</span></li>
+                    </ul>
+                    <p><span style="font-weight: 400;">If this is an electronic consent, I understand that by clicking accept or typing my name and the date below I am providing my consent electronically and that it has the same force and effect as if I was signing in person on paper. </span></p>`
                 }, {
                     name: "agreementConfirmation",
                     title: "\n",
                     type: "checkbox",
                     choices: [
-                        'I confirm and agree with all of the above',
+                        'Accept',
                     ],
                     isRequired: true
                 }, {
@@ -566,141 +256,6 @@ export const surveyJson = {
                     signatureHeight: 400,
                     penColor: "black",
                     isRequired: true
-                }]
-            }, {
-                type: "panel",
-                name: "otherInformation",
-                elements: [{
-                    type: "html",
-                    html: `<h4 style="text-align: center;">`
-                        + `Other Information`
-                        + `</h4>`
-                }, {
-                    name: "source",
-                    title: "How did you find out about this research study?",
-                    type: "checkbox",
-                    choices: [
-                        'TELUS International Website',
-                        'Facebook',
-                        'LinkedIn',
-                        'Flyer',
-                        'Newspaper',
-                        'I was referred by someone',
-                        'Instagram',
-                        'Indeed',
-                        'FlexJobs',
-                        'Work Market platform',
-                        'Through my association',
-                        'Twitter',
-                        'Craiglist',
-                        'Google Ad',
-                        "I'm a TELUS International employee",
-                        'I was contacted by TELUS International directly',
-                        'Snapchat',
-                        'Reddit',
-                        'Retirement Jobs',
-                        'TikTok'
-                    ],
-                    showOtherItem: true,
-                    otherText: "Other",
-                    colCount: "4",
-                    isRequired: true,
-                    maxSelectedChoices: "1"
-                }, {
-                    name: "otherCompanies",
-                    title: "Do you, or does any member of your immediate family, currently work for any of the below companies?",
-                    type: "checkbox",
-                    choices: [
-                        'Alphabet',
-                        'Amazon',
-                        'Appen',
-                        'Apple',
-                        'BOSE',
-                        'Google',
-                        'HTC',
-                        'Huawei',
-                        'IBM',
-                        'LG',
-                        'Magic Leap',
-                        'Meta',
-                        'Microsoft',
-                        'Netflix',
-                        'Nuance',
-                        'Samsung',
-                        'Sony',
-                        'Yahoo'
-
-                    ],
-                    separateSpecialChoices: true,
-                    showNoneItem: true,
-                    noneText: "None of these",
-                    maxSelectedChoices: 10,
-                    colCount: "5",
-                    isRequired: true,
-                }, {
-                    name: "chosenIndustry",
-                    title: "What industry do you work in?",
-                    type: "radiogroup",
-                    choices: [
-                        'Aerospace',
-                        'Commercial Services',
-                        'Health Care and Medicine',
-                        'Public Services',
-                        'Agriculture',
-                        'Construction',
-                        'Hospitality',
-                        'Technology',
-                        'Advertising',
-                        'Education',
-                        'Marketing and Media',
-                        'Telecommunitacions',
-                        'Fashion',
-                        'Entertainment',
-                        'Manufacturing',
-                        'Tourism',
-                        'Finance',
-                        'Energy Sector',
-                        'Mining',
-                        'Transportation',
-                        'Charity or NGO',
-                        'Environmental Sciences',
-                        'Pharmaceutics',
-                        'I am currently not working',
-                    ],
-                    colCount: "5",
-                    isRequired: true,
-                }, {
-                    name: "interestedInRecruiting",
-                    type: "radiogroup",
-                    title: "I'm interested in helping TELUS International find more participants like me: ",
-                    choices: ["Yes", "No"]
-                }, {
-                    type: "html",
-                    html: `<div><strong>TERMS &amp; CONDITIONS</strong></div>
-                            <div>&nbsp;</div>
-                            <div>Please confirm the four items below to successfully submit your registration.<br /><br />
-                            <p>- I confirm that I will NOT disclose, discuss, distribute or share with anyone any of the documentation, training materials or other project documents received from TELUS International, nor I will disclose information about TELUS International's clients and their names.</p>
-                            <p>- I confirm that I provide TELUS International the rights to use the data that I will submit for technology and research purposes</p>
-                            <p>- I confirm that I understand that I'm personally responsible for declaring the amount of the compensation received for the task according to the tax regulations of my country/region and that I’m legally entitled to perform work</p>
-                            <p>- I confirm that all information supplied above is correct and accurate.</p>
-                            <p>- If this is an electronic agreement I understand that by clicking accept or typing my name and the date below I am providing my consent electronically and that it has the same force and effect as if I was signing in person on paper.</p>
-                            </div>`
-                }, {
-                    name: "termsAgreement",
-                    title: "\n",
-                    type: "checkbox",
-                    choices: [
-                        'I confirm and agree with all of the above',
-                    ],
-                    isRequired: true
-                }, {
-                    name: "futureProjectsInterest",
-                    title: "\n",
-                    type: "checkbox",
-                    defaultValue: ['I would like to be contacted in the future for other TELUS International projects similar to this'],
-                    choices: [
-                        'I would like to be contacted in the future for other TELUS International projects similar to this',
-                    ],
                 }]
             }]
         }
