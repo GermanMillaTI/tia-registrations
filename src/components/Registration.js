@@ -196,7 +196,7 @@ function Registration() {
 
     uploadBytesResumable(storageRef, imageBlob);
 
-    console
+
     writeRegistry(pid, sender.data);
 
     if (
