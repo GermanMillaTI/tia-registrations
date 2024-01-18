@@ -20,7 +20,8 @@ export const surveyJson = {
                         + `<li class="done" aria-level="1"><span><strong>Earn $125 for completing a 1-hour session</strong></span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">All ages 18-65 are qualified to participate</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be legally authorized to work in the US</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak and understand English</span></li>`
+                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be able to stand and perform physical actions for an hour</span></li>`
+                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak, understand and read English proficiently/span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Willing to be present in a recorded session</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Free parking available onsite</span></li>`
                         + `</ul>`
@@ -40,7 +41,8 @@ export const surveyJson = {
                         type: "html",
                         html: `<h4 style="text-align: center;">`
                             + `Personal Information`
-                            + `</h4>`
+                            + `</h4>
+                            <hr>`
                     },
                     {
                         name: "firstName",
@@ -352,14 +354,30 @@ export const surveyJson = {
                     {
                         type: "html",
                         html: `<h4 style="text-align: center;">`
-                            + `Identification`
-                            + `</h4>`
+                            + `Vision Correction and Identification`
+                            + `</h4>
+                            <hr>`
+                    }, {
+                        type: "html",
+                        html: `<div>
+                        <p>We need participants with contact lenses, glasses and without any vision correction. <strong>Providing accurate information during this qualifying stage will improve your chances of getting selected for the study.</strong> We may have no choice but to disqualify you if you come for a session onsite and your vision correction differs from what you have indicated here.</p>
+                        </div>`
+                    }, {
+                        name: "visionCorrection",
+                        type: "radiogroup",
+                        title: "Do you wear prescription glasses or contact lenses?",
+                        choices: [
+                            "I do not wear prescription glasses or contact lenses",
+                            "Contact lenses",
+                            "Glasses - distance",
+                            "Glasses - progressive, bifocal or multifocal",
+                            "Glasses - reading"
+                        ]
                     }, {
                         type: "html",
                         html: `<p><span style="font-weight: 400;">Please upload an image of your ID, preferably driver’s license. You need to hide the </span><span style="font-weight: 400;">address, social security number, ID number on the documents you upload.</span></p>
                             <p>We will need to confirm your identity to qualify you for the study.</p>`
-                    }
-                    ,
+                    },
                     {
                         type: "file",
                         title: "Driver's license or other form of identification",
@@ -367,7 +385,7 @@ export const surveyJson = {
                         storeDataAsText: false,
                         waitForUpload: true,
                         allowMultiple: false,
-                        maxWidth: "30%",
+                        maxWidth: "40%",
                         height: 10,
                         isRequired: true
                     }, {
@@ -381,7 +399,8 @@ export const surveyJson = {
                     type: "html",
                     html: `<h4 style="text-align: center;">`
                         + `Contributor Services Agreement`
-                        + `</h4>`
+                        + `</h4>
+                        <hr>`
                 }, {
                     type: "html",
                     html: `<span style="color:red">Please, kindly read and sign the Contributor Services Agreement below, if you wish to participate in this project (please scroll to view the entire document):</span>`
@@ -574,11 +593,12 @@ export const surveyJson = {
                     type: "html",
                     html: `<h4 style="text-align: center;">`
                         + `Other Information`
-                        + `</h4>`
+                        + `</h4>
+                        <hr>`
                 }, {
                     name: "source",
                     title: "How did you find out about this research study?",
-                    type: "checkbox",
+                    type: "radiogroup",
                     choices: [
                         'TELUS International Website',
                         'Facebook',
@@ -679,11 +699,13 @@ export const surveyJson = {
                     html: `<div><strong>TERMS &amp; CONDITIONS</strong></div>
                             <div>&nbsp;</div>
                             <div>Please confirm the four items below to successfully submit your registration.<br /><br />
-                            <p>- I confirm that I will NOT disclose, discuss, distribute or share with anyone any of the documentation, training materials or other project documents received from TELUS International, nor I will disclose information about TELUS International's clients and their names.</p>
-                            <p>- I confirm that I provide TELUS International the rights to use the data that I will submit for technology and research purposes</p>
-                            <p>- I confirm that I understand that I'm personally responsible for declaring the amount of the compensation received for the task according to the tax regulations of my country/region and that I’m legally entitled to perform work</p>
-                            <p>- I confirm that all information supplied above is correct and accurate.</p>
-                            <p>- If this is an electronic agreement I understand that by clicking accept or typing my name and the date below I am providing my consent electronically and that it has the same force and effect as if I was signing in person on paper.</p>
+                            <ul>
+
+                            <li> I confirm that I will NOT disclose, discuss, distribute or share with anyone any of the documentation, training materials or other project documents received from TELUS International, nor I will disclose information about TELUS International's clients and their names.</li>
+                            <li> I confirm that I provide TELUS International the rights to use the data that I will submit for technology and research purposes</li>
+                            <li> I confirm that I understand that I'm personally responsible for declaring the amount of the compensation received for the task according to the tax regulations of my country/region and that I’m legally entitled to perform work</li>
+                            <li> I confirm that all information supplied above is correct and accurate.</li>
+                            <li> If this is an electronic agreement I understand that by clicking accept or typing my name and the date below I am providing my consent electronically and that it has the same force and effect as if I was signing in person on paper.</li>
                             </div>`
                 }, {
                     name: "termsAgreement",

@@ -7,7 +7,14 @@ const writeRegistry = (path, input) => {
 }
 
 
+const writeRegistryICF = (path, input) => {
+
+    update(ref(realtimeDb, `/participants/${path}/icf`), input);
+}
+
+
 export {
     writeRegistry,
+    writeRegistryICF
 };
 

@@ -11,7 +11,7 @@ export const icfQuestions = {
                 elements: [{
                     type: "html",
                     html: `<div style="text-align: center;">
-                    <div style="text-align: center;"><span style="color: #000000">&nbsp;<img src="https://fs30.formsite.com/LB2014/images/TELUS_2017_Int_EN_Hor_RGB_(1).jpg" alt="" width="489" height="101" /></span></div>
+                    <div style="text-align: center;"><span style="color: #000000">&nbsp;<img src="https://fs30.formsite.com/LB2014/images/TELUS_2017_Int_EN_Hor_RGB_(1).jpg" alt="" width="50%" height="auto" /></span></div>
                     <div style="text-align: center;">
                     <div style="text-align: center;">
                     <div style="text-align: center;"><span style="color: #000000"><strong>Thank you for your interest in our Project Foraker!</strong></span></div>

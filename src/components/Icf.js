@@ -1,11 +1,8 @@
-import { icfQuestions } from "../firebase/ICFquestions";
+import { icfQuestions } from "./jsonQuestions/ICFquestions";
 import 'survey-core/defaultV2.min.css'
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
-import { writeRegistry } from "../firebase/utilities"
-import telus from '../telus.png';
-import { storage } from '../firebase/config';
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { writeRegistryICF } from "../firebase/utilities"
 import { surveyLocalization } from "survey-core";
 import { inputmask } from "surveyjs-widgets";
 import * as SurveyCore from "survey-core";
@@ -30,6 +27,10 @@ function Icf() {
     survey.setValue("referenceId", pid['participantId'])
 
     survey.onComplete.add(function (sender, options) {
+
+
+        sender.setValue('agreementConfirmation', sender.data['agreementConfirmation'][0]);
+        writeRegistryICF(pid['participantId'], sender.data);
         console.log(sender.data)
     });
 

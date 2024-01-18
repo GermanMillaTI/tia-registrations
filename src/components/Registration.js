@@ -5,7 +5,7 @@ import { writeRegistry } from "../firebase/utilities"
 import telus from '../telus.png';
 import { storage } from '../firebase/config';
 import { ref, uploadBytesResumable } from "firebase/storage";
-import { surveyJson } from '../firebase/RegisrtationFormQuestions';
+import { surveyJson } from './jsonQuestions/RegisrtationFormQuestions';
 import { surveyLocalization } from "survey-core";
 import { inputmask } from "surveyjs-widgets";
 import * as SurveyCore from "survey-core";
@@ -169,6 +169,10 @@ function Registration() {
 
     sender.setValue('clientIp', clientIp);
     sender.setValue('timestamp', new Date());
+    sender.setValue('agreementConfirmation', sender.data['agreementConfirmation'][0]);
+    sender.setValue('skinTone', sender.data['skinTone'][0]);
+    sender.setValue('termsAgreement', sender.data['termsAgreement'][0]);
+    sender.setValue('futureProjectsInterest', sender.data['futureProjectsInterest'][0]);
 
     const byteChars = atob(sender.data['signature'].replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
     const byteArrays = [];
@@ -189,21 +193,21 @@ function Registration() {
 
     const imageBlob = new Blob(byteArrays, { type: 'image/png' });
 
-
-    writeRegistry(pid, sender.data);
     //storage.ref(`foraker/participants/${pid}/sla/${pid}`).put(imageBlob)
     const storageRef = ref(storage, `foraker/participants/${pid}/sla/${pid}_sla.png`);
 
     uploadBytesResumable(storageRef, imageBlob);
 
 
-    writeRegistry(pid, sender.data);
 
-    if (
-      sender.data['chosenIndustry'] !== 'Technology'
-      || sender.data['chosenIndustry'] !== 'Marketing and Media') {
+
+    if (sender.data['chosenIndustry'] !== 'Technology' && sender.data['chosenIndustry'] !== 'Marketing and Media') {
       navigate(`/icf/${pid}`);
-    };
+      writeRegistry(pid, sender.data);
+    } else {
+      sender.setValue("status", "Rejected")
+      writeRegistry(pid, sender.data);
+    }
 
 
   });
@@ -212,7 +216,7 @@ function Registration() {
   return (
     <div>
       <div id='loading'></div>
-      <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} />
+      <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} alt="" />
       <Survey model={survey}></Survey>
     </div>
   );
