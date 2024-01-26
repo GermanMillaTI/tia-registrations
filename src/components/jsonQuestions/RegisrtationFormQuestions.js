@@ -21,7 +21,7 @@ export const surveyJson = {
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">All ages 18-65 are qualified to participate</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be legally authorized to work in the US</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Must be able to stand and perform physical actions for an hour</span></li>`
-                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak, understand and read English proficiently/span></li>`
+                        + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Speak, understand and read English proficiently</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Willing to be present in a recorded session</span></li>`
                         + `<li class="done" style="font-weight: 400;" aria-level="1"><span style="font-weight: 400">Free parking available onsite</span></li>`
                         + `</ul>`
@@ -45,13 +45,13 @@ export const surveyJson = {
                             <hr>`
                     },
                     {
-                        name: "firstName",
+                        name: "first_name",
                         title: "First name:",
                         type: "text",
                         isRequired: true
                     },
                     {
-                        name: "lastName",
+                        name: "last_name",
                         title: "Last name:",
                         type: "text",
                         isRequired: true,
@@ -84,14 +84,14 @@ export const surveyJson = {
                         ],
                         isRequired: true
                     }, {
-                        name: "dateOfBirth",
+                        name: "date_of_birth",
                         title: "Date of birth:",
                         type: "text",
                         inputType: "date",
                         isRequired: true,
                         startWithNewLine: false
                     }, {
-                        name: "countryOfResidence",
+                        name: "country_of_residence",
                         title: "Country of residence:",
                         type: "dropdown",
                         choices: [
@@ -101,7 +101,7 @@ export const surveyJson = {
                         ],
                         isRequired: true
                     }, {
-                        name: "stateOfResidence",
+                        name: "state_of_residence",
                         title: "State of residence:",
                         type: "dropdown",
                         choices: [
@@ -158,7 +158,7 @@ export const surveyJson = {
                             { value: 'Wyoming' },
                         ],
                         isRequired: true,
-                        visibleIf: "{countryOfResidence} = 'United States'",
+                        visibleIf: "{country_of_residence} = 'United States'",
                         startWithNewLine: false,
                     }, {
                         name: "countryOfResidence_other",
@@ -167,10 +167,10 @@ export const surveyJson = {
                         isRequired: true,
                         startWithNewLine: false,
                         placeholder: 'Please specify the country of residence',
-                        visibleIf: "{countryOfResidence} = 'Other'"
+                        visibleIf: "{country_of_residence} = 'Other'"
 
                     }, {
-                        name: "cityOfResidence",
+                        name: "city_of_residence",
                         title: "City of residence:",
                         type: "text",
                         isRequired: true,
@@ -250,7 +250,7 @@ export const surveyJson = {
                         ],
                         showNoneItem: true,
                         noneText: "None of the above",
-                        otherText: "Other"
+                        isRequired: true,
                     }, {
                         name: "isPregnant",
                         title: "Are you pregnant?",
@@ -258,19 +258,19 @@ export const surveyJson = {
                         choices: ["Yes", "No"],
                         isRequired: true,
                     }, {
-                        name: "vlog",
+                        name: "has_vlog",
                         title: "Do you have a blog or vlog?",
                         type: "radiogroup",
                         choices: ["Yes", "No"],
                         isRequired: true,
                     }, {
-                        name: "vlogUrl",
+                        name: "vlog",
                         title: "Link of blog / vlog",
                         type: "text",
                         isRequired: true,
                         inputMask: "url",
                         startWithNewLine: false,
-                        visibleIf: '{vlog} = "Yes"'
+                        visibleIf: '{has_vlog} = "Yes"'
                     }, {
                         name: "onsiteAvailability",
                         title: "Are you able to come for a one hour study appointment at our onsite location in Sunnyvale, California?",
@@ -299,27 +299,36 @@ export const surveyJson = {
                     }, {
                         name: "weight_lbs",
                         title: "Your weight (lbs):",
+                        description: "In pounds",
                         type: "text",
                         inputType: "number",
+                        min: 1,
                         isRequired: true,
                     }, {
                         name: "height_ft",
                         title: "Your height (feet):",
+                        description: "between 1-8 feet",
                         type: "text",
                         inputType: "number",
+                        min: 1,
+                        max: 8,
                         isRequired: true,
                         startWithNewLine: false,
                     }, {
                         name: "height_in",
                         title: "Your height (inches):",
+                        description: "between 0-11 inches",
                         type: "text",
                         inputType: "number",
+                        min: 0,
+                        max: 11,
                         isRequired: true,
                         startWithNewLine: false,
                     }, {
                         name: "haiLength",
                         title: "Hair Length",
                         type: "dropdown",
+                        description: "between None - Long",
                         choices: [
                             'None',
                             'Short',
@@ -567,7 +576,7 @@ export const surveyJson = {
                     isRequired: true,
                     startWithNewLine: false
                 }, {
-                    name: "Date",
+                    name: "date",
                     title: "Signature Date",
                     type: "text",
                     inputType: "date",
@@ -658,7 +667,7 @@ export const surveyJson = {
                     colCount: "5",
                     isRequired: true,
                 }, {
-                    name: "chosenIndustry",
+                    name: "industry",
                     title: "What industry do you work in?",
                     type: "radiogroup",
                     choices: [

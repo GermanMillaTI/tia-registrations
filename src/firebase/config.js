@@ -8,13 +8,13 @@ import { getDatabase } from 'firebase/database';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDPMmZFaf3kjA_l4J94l2j6A5rpFJ7BEYs",
-    authDomain: "tiai-registrations.firebaseapp.com",
-    databaseURL: "https://tiai-registrations-default-rtdb.firebaseio.com",
-    projectId: "tiai-registrations",
-    storageBucket: "tiai-registrations.appspot.com",
-    messagingSenderId: "1090626878097",
-    appId: "1:1090626878097:web:7182282cd03c36ad3fdd30"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASEURL,
+    projectId: process.env.REACT_APP_PROJECTID,
+    storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_FBAPPID
 };
 
 // Initialize Firebase

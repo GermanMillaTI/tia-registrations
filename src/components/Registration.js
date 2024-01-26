@@ -10,6 +10,9 @@ import { surveyLocalization } from "survey-core";
 import { inputmask } from "surveyjs-widgets";
 import * as SurveyCore from "survey-core";
 import { useNavigate } from 'react-router-dom';
+import { writeForakerValue } from '../firebase/forakerconfig';
+import Constants from './Constants';
+import { getDownloadURL } from 'firebase/storage';
 
 
 const localeSettings = {
@@ -41,6 +44,14 @@ function generateRandomNumber() {
 
 }
 
+function convertFeetToCentimeters(feet, inches) {
+  const feetInCentimeters = feet * 30.48;
+  const inchesInCentimeters = inches * 2.54;
+
+  const totalCentimeters = feetInCentimeters + inchesInCentimeters;
+
+  return totalCentimeters;
+}
 
 
 function Registration() {
@@ -49,6 +60,7 @@ function Registration() {
   let clientIp;
   const survey = new Model(surveyJson);
   const tempFileStorage = {};
+
 
   const navigate = useNavigate();
 
@@ -62,7 +74,7 @@ function Registration() {
   });
 
 
-  survey.onUploadFiles.add((_, options) => {
+  survey.onUploadFiles.add((sender, options) => {
 
     document.getElementById("loading").style.display = "block";
 
@@ -121,7 +133,11 @@ function Registration() {
                   // Reject if upload is not successful
                   reject(new Error("Upload failed"));
                 }
-                document.getElementById("loading").style.display = "";
+                getDownloadURL(storageRef).then(url => {
+                  sender.setValue('pptId_url', url.split("https://firebasestorage.googleapis.com/v0/b/tiai-registrations.appspot.com/o/foraker")[1])
+                  document.getElementById("loading").style.display = "";
+                })
+
               }).catch(error => {
                 reject(error);
               });
@@ -164,15 +180,21 @@ function Registration() {
     options.callback("success");
   });
 
-  survey.onComplete.add(function (sender, options) {
+  survey.onCompleting.add(function (sender, options) {
 
+    options.allow = false;
 
+    sender.setValue('height_cm', convertFeetToCentimeters(parseInt(sender.data['height_ft']), parseInt(sender.data['height_in'])));
+    sender.setValue('weight_kg', parseFloat(sender.data['weight_lbs']) / 2.205)
+    sender.setValue('phone', '+' + sender.data['phone']);
     sender.setValue('clientIp', clientIp);
+    sender.setValue('identificationFile', 'uploaded')
     sender.setValue('timestamp', new Date());
+    sender.setValue('year_of_birth', sender.data['date_of_birth'].substring(0, 4))
     sender.setValue('agreementConfirmation', sender.data['agreementConfirmation'][0]);
     sender.setValue('skinTone', sender.data['skinTone'][0]);
     sender.setValue('termsAgreement', sender.data['termsAgreement'][0]);
-    sender.setValue('futureProjectsInterest', sender.data['futureProjectsInterest'][0]);
+
 
     const byteChars = atob(sender.data['signature'].replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
     const byteArrays = [];
@@ -196,18 +218,43 @@ function Registration() {
     //storage.ref(`foraker/participants/${pid}/sla/${pid}`).put(imageBlob)
     const storageRef = ref(storage, `foraker/participants/${pid}/sla/${pid}_sla.png`);
 
-    uploadBytesResumable(storageRef, imageBlob);
+    const uploadTask = uploadBytesResumable(storageRef, imageBlob);
+
+    uploadTask.then(snapshot => {
+      console.log(snapshot.state)
+      getDownloadURL(storageRef).then(url => {
+
+        sender.setValue("sla_url", url.split("https://firebasestorage.googleapis.com/v0/b/tiai-registrations.appspot.com/o/foraker")[1])
+
+
+        options.allow = true;
+        if (sender.data['industry'] !== 'Technology' && sender.data['industry'] !== 'Marketing and Media' && sender.data['healthConditions'].includes('none')) {
+
+          writeRegistry(pid, sender.data);
+          writeForakerValue(`participants/${pid}/`, sender.data);
+          navigate(`/icf/${pid}`);
+
+        } else {
+          sender.setValue("status", "Rejected")
+          sender.setValue("comment", "Automatically rejected due to health condition or industry")
+          writeRegistry(pid, sender.data);
+          writeForakerValue(`participants/${pid}/`, sender.data);
+
+          sender.getAllQuestions().forEach(function (question) {
+            question.readOnly = true;
+          })
+          document.getElementById("ThankyouPage").style.display = "block";
+        }
+      })
+    })
 
 
 
 
-    if (sender.data['chosenIndustry'] !== 'Technology' && sender.data['chosenIndustry'] !== 'Marketing and Media') {
-      navigate(`/icf/${pid}`);
-      writeRegistry(pid, sender.data);
-    } else {
-      sender.setValue("status", "Rejected")
-      writeRegistry(pid, sender.data);
-    }
+
+
+
+
 
 
   });
@@ -216,6 +263,11 @@ function Registration() {
   return (
     <div>
       <div id='loading'></div>
+      <div id="ThankyouPage">
+        <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} alt="TELUS Logo" />
+        <h4>Thank you for your registration.</h4><br />
+        <p>We will review your registration and contact you with any further steps.</p>
+      </div>
       <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} alt="" />
       <Survey model={survey}></Survey>
     </div>
