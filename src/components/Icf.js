@@ -12,6 +12,7 @@ import { getDownloadURL } from 'firebase/storage';
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../firebase/config';
 import telus from '../telus.png';
+import { useState } from "react";
 
 const localeSettings = {
     completeText: "Submit",
@@ -26,6 +27,7 @@ inputmask(SurveyCore);
 surveyLocalization.locales["en"] = localeSettings;
 
 function Icf() {
+    const [showICFty, setShowICFty] = useState(false);
     const survey = new Model(icfQuestions);
     const pid = useParams();
 
@@ -54,11 +56,13 @@ function Icf() {
         const imageBlob = new Blob(byteArrays, { type: 'image/png' });
 
         //storage.ref(`foraker/participants/${pid}/sla/${pid}`).put(imageBlob)
-        const storageRef = ref(storage, `foraker/participants/${pid}/sla/${pid}_sla.png`);
+        const storageRef = ref(storage, `foraker/participants/${pid['participantId']}/icf/${pid['participantId']}_icf.png`);
 
         const uploadTask = uploadBytesResumable(storageRef, imageBlob);
 
         uploadTask.then(snapshot => {
+
+            //sender.setValue('signature', snapshot.state)
             getDownloadURL(storageRef).then(url => {
                 console.log(url);
                 sender.setValue("icf_url", url.split("https://firebasestorage.googleapis.com/v0/b/tiai-registrations.appspot.com/o/foraker")[1])
@@ -71,8 +75,8 @@ function Icf() {
                 writeForakerValue(`/participants/${pid['participantId']}/icf`, sender.data);
 
 
-                document.getElementById("ThankyouPage").style.display = "block";
-
+                //document.getElementById("ThankyouPage").style.display = "block";
+                setShowICFty(true);
                 sender.getAllQuestions().forEach(function (question) {
                     question.readOnly = true;
                 })
@@ -84,11 +88,11 @@ function Icf() {
 
     return (
         <>
-            <div id="ThankyouPage">
+            {showICFty && <div id="ThankyouPage">
                 <img className="telus-logo" src={telus} style={{ width: "fit-content", maxWidth: "100%" }} alt="TELUS Logo" />
                 <h4>Thank you for your registration.</h4><br />
                 <p>We will review your registration and contact you with any further steps.</p>
-            </div>
+            </div>}
 
 
             <Survey model={survey}></Survey>

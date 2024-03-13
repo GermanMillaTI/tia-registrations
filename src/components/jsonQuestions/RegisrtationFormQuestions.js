@@ -326,7 +326,20 @@ export const surveyJson = {
                         startWithNewLine: false,
                     }, {
                         name: "haiLength",
-                        title: "Hair Length",
+                        title: "Hair length",
+                        type: "dropdown",
+                        description: "between None - Long",
+                        choices: [
+                            'None',
+                            'Short',
+                            'Medium',
+                            'Long'
+                        ],
+                        isRequired: true,
+                        startWithNewLine: false
+                    }, {
+                        name: "facialLength",
+                        title: "Facial hair length",
                         type: "dropdown",
                         description: "between None - Long",
                         choices: [
@@ -339,7 +352,7 @@ export const surveyJson = {
                         startWithNewLine: false
                     }, {
                         type: "html",
-                        html: `<strong>What is your skin tone (before sun exposure)? Please select one of the options below, drawn from the dermatologically recognized <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale#/">Fitzpatrick phototyping scale</a>:</strong><br /><br /><img src="https://fs30.formsite.com/LB2014/images/scale.jpeg" alt="" max-width="500px"; width="100%" ; height="auto" />`
+                        html: `<strong>What is your skin tone (before sun exposure)? Please select one of the options below, drawn from the dermatologically recognized <a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale#/">Fitzpatrick phototyping scale</a>:</strong><br /><br /> <img src="https://firebasestorage.googleapis.com/v0/b/tiai-registrations.appspot.com/o/TELUS_props%2FFitzpatrickScale.png?alt=media&token=9941837f-41fa-4d30-81d9-4759a028f69e" width="100%" style="margin-left:auto; margin-right:auto;"/>`
                     }, {
                         name: "skinTone",
                         title: "\n",
@@ -391,7 +404,6 @@ export const surveyJson = {
                         type: "file",
                         title: "Driver's license or other form of identification",
                         name: "identificationFile",
-                        storeDataAsText: false,
                         waitForUpload: true,
                         allowMultiple: false,
                         maxWidth: "40%",
@@ -593,7 +605,7 @@ export const surveyJson = {
                     signatureWidth: 700,
                     signatureHeight: 400,
                     penColor: "black",
-                    isRequired: true
+                    isRequired: true,
                 }]
             }, {
                 type: "panel",
@@ -634,7 +646,8 @@ export const surveyJson = {
                     otherText: "Other",
                     colCount: "4",
                     isRequired: true,
-                    maxSelectedChoices: "1"
+                    maxSelectedChoices: "1",
+                    visibleIf: "{source} != 'Respondent'"
                 }, {
                     name: "otherCompanies",
                     title: "Do you, or does any member of your immediate family, currently work for any of the below companies?",
